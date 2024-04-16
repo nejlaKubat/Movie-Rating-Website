@@ -1,0 +1,17 @@
+<div class="screen-container home-screen">
+    <div class="home-screen__buttons">
+        <custom-button icon="fa fa-film" [isActive]="(mode | async) === 'movies'" (click)="setMode('movies')">Movies</custom-button>
+        <custom-button icon="fa fa-desktop" [isActive]="(mode | async) === 'shows'" (click)="setMode('shows')">TV Shows</custom-button>
+    </div>
+    <div class="home-screen__search-bar">
+        <search (input)="debouncedSearch($event)"></search>
+    </div>
+    <div class="home-screen__cards-container">
+        <fade-card class="home-screen__card"
+            *ngFor="let item of (content | async)"
+            (click)="navigate(item.id)"
+            title="{{item.name || item.title || item.original_name}}"
+            imageURL="{{IMAGE_API_URL + item.poster_path}}"
+        ></fade-card>
+    </div>
+</div>
